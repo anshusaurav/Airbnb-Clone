@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-// const checkAuth = require("../middleware/checkAuth");
-const { getAllMovies, addMovie } = require("../controller/movie");
+const checkAuth = require("../middleware/checkAuth");
+const { getAllMovies, addMovie } = require("../controller/reservation");
 
 router.get("/", getAllMovies);
 // router.post("/addmovie", addMovie);

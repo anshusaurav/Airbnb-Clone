@@ -15,6 +15,14 @@ const userSchema = mongoose.Schema({
     index: true
 
   },
+  countryCode: {
+    type: String,
+    required: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
   password: { type: String, required: true },
   favouriteMovies: [{ type: String }],
 }, {
