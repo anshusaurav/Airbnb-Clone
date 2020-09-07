@@ -1,5 +1,6 @@
 const cors = require("cors");
 const path = require("path");
+var morgan = require('morgan')
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -9,7 +10,7 @@ const app = express();
 
 //To prevent CORS errors
 app.use(cors());
-
+app.use(morgan('combined'))
 //Connecting mongoDB
 const databaseConfig = require("./config/keys");
 console.log(databaseConfig);

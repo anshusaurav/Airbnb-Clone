@@ -21,7 +21,7 @@ export const signIn = (credentials) => {
 export const signUp = (credentials) => {
   return async (dispatch) => {
     try {
-      const result = await Axios.post("/api/users/signup", credentials);
+      const result = await Axios.post("/api/users", credentials);
       dispatch({ type: SIGNUP_SUCCESS, payload: result });
     } catch (error) {
       dispatch({ type: SIGNUP_ERROR, error });
