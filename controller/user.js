@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 exports.signUp = (req, res) => {
-  const { email, password, fullname } = req.body.user;
+  const { email, password, fullname, countryCode, phoneNumber } = req.body.user;
 
   User.findOne({ email }) //Checking if the email exist
     .then((user) => {
@@ -19,6 +19,8 @@ exports.signUp = (req, res) => {
             const userData = new User({
               email,
               fullname,
+              countryCode,
+              phoneNumber,
               password: hash,
               favouriteMovies: [],
             });

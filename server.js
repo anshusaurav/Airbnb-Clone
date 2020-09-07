@@ -14,9 +14,9 @@ const app = express();
 app.use(cors());
 app.use(morgan('combined'))
 //Connecting mongoDB
-const databaseConfig = require("./config/keys");
-console.log(databaseConfig);
-mongoose.connect(databaseConfig, {
+// const databaseConfig = require("./config/keys");
+// console.log(databaseConfig);
+mongoose.connect('mongodb://localhost/airbnb-clone', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
