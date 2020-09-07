@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 exports.signUp = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, fullname } = req.body.user;
 
   User.findOne({ email }) //Checking if the email exist
     .then((user) => {
@@ -17,8 +17,8 @@ exports.signUp = (req, res) => {
           if (error) res.status(500).json({ error });
           else {
             const userData = new User({
-              _id: mongoose.Types.ObjectId(),
-              email: email,
+              email,
+              fullname,
               password: hash,
               favouriteMovies: [],
             });
@@ -28,8 +28,8 @@ exports.signUp = (req, res) => {
                 // create reusable transporter object using the default SMTP transport
                 let transporter = nodemailer.createTransport({
                   service: "gmail",
-                  port: 587,
-                  secure: false, // true for 465, false for other ports
+                  port: 465,
+                  secure: true, // true for 465, false for other ports
                   auth: {
                     user: process.env.SENDER_EMAIL, // generated ethereal user
                     pass: process.env.EMAIL_PASSWORD, // generated ethereal password
@@ -60,7 +60,7 @@ exports.signUp = (req, res) => {
 };
 
 exports.signIn = (req, res, next) => {
-  const { password, email } = req.body;
+  const { password, email } = req.body.user;
   User.find({ email: email }, (err, user) => {
     if (err || user.length === 0)
       res.status(404).json({ error: "No user was found with this email." });
