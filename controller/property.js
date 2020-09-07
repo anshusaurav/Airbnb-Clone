@@ -1,15 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var Property = require('../models/property');
-var middleware = require('../lib/middleware');
 
-router.use(function (req, res, next) {
-    res.locals.user = req.user;
-    next();
-});
+
 
 // GET /properties
-router.get('/', function (req, res) {
+export const getProperties = (req, res) => {
     Property.find().then(function (properties) {
         res.render('properties/index', { properties: properties });
     });
@@ -43,13 +39,7 @@ router.post('/', middleware.isAuthenticated, function (req, res) {
         });
 });
 
-// GET /properties/1/edit
-router.get('/:id/edit', middleware.isAuthenticated, function (req, res) {
-    var propertyId = req.params.id;
-    Property.findOne({ _id: propertyId }).then(function (property) {
-        res.render('properties/edit', { property: property });
-    });
-});
+
 
 // POST /properties/update
 router.post('/update', middleware.isAuthenticated, function (req, res) {

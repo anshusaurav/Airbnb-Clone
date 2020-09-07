@@ -4,9 +4,11 @@ const router = express.Router();
 const { signIn, signUp, updateUser, deleteUser } = require("../controller/user");
 
 //Handling all the incoming requests
-router.post("/", signUp);
-router.post("/login", signIn);
-router.patch("/:userID", updateUser);
-router.delete("/:userID", deleteUser);
+router.get("/", getProperties);
+router.get("/new", getNewProperties);
+router.get("/:propertyID", getProperty);
+router.post("/", addProperty);
+router.patch("/:propertyID", editProperty);
+router.delete("/:propertyID", deleteProperty);
 module.exports = router;
 
