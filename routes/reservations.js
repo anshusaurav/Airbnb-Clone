@@ -10,7 +10,7 @@ var router = express.Router();
 var Property = require('../models/property');
 var Reservation = require('../models/reservation');
 var User = require('../models/user');
-var notifier = require('../lib/notifier');
+var notifier = require('../utilities/notifier');
 
 // POST: /reservations
 router.post('/', function (req, res) {

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // const checkAuth = require("../middleware/checkAuth");
-const { signIn, signUp, updateUser, deleteUser } = require("../controller/user");
+const { getProperties, getNewProperties, getProperty, addProperty, editProperty, deleteProperty } = require("../controller/property");
 
 //Handling all the incoming requests
 router.get("/", getProperties);

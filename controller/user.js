@@ -2,7 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-export const signUp = (req, res) => {
+exports.signUp = (req, res) => {
   const { email, password, fullname, countryCode, phoneNumber } = req.body.user;
 
   User.findOne({ email }) //Checking if the email exist
@@ -40,7 +40,7 @@ export const signUp = (req, res) => {
     });
 };
 
-export const signIn = (req, res, next) => {
+exports.signIn = (req, res, next) => {
   const { password, email } = req.body.user;
   User.find({ email: email }, (err, user) => {
     if (err || user.length === 0)
@@ -68,7 +68,7 @@ export const signIn = (req, res, next) => {
   }).catch((err) => res.status(500).json({ error: err }));
 };
 
-export const updateUser = (req, res, next) => {
+exports.updateUser = (req, res, next) => {
   const userID = req.params.userID;
 
   User.updateMany({ _id: userID }, { $set: req.body })
@@ -76,7 +76,7 @@ export const updateUser = (req, res, next) => {
     .catch((error) => res.status(409).json(error));
 };
 
-export const deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res, next) => {
   User.remove({ _id: req.params.userID })
     .then((result) => {
       if (result.length > 0)

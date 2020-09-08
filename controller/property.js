@@ -5,29 +5,29 @@ var Property = require('../models/property');
 
 
 // GET /properties
-export const getProperties = (req, res) => {
+exports.getProperties = (req, res) => {
     Property.find().then(function (properties) {
         res.render('properties/index', { properties: properties });
     });
-});
+}
 
 // GET /properties/new
-router.get('/new', middleware.isAuthenticated, function (req, res) {
+exports.getProperties = (req, res) => {
     Property.find().then(function (properties) {
         res.render('properties/new');
     });
-});
+}
 
 // GET /properties/1
-router.get('/:id', middleware.isAuthenticated, function (req, res) {
+exports.getProperty = (req, res) => {
     var propertyId = req.params.id;
     Property.findOne({ _id: propertyId }).then(function (property) {
         res.render('properties/show', { property: property });
     });
-});
+}
 
 // POST /properties
-router.post('/', middleware.isAuthenticated, function (req, res) {
+exports.addProperty = (req, res) => {
     var description = req.body.description;
     var imageUrl = req.body.imageUrl;
     var user = req.user;
@@ -37,12 +37,12 @@ router.post('/', middleware.isAuthenticated, function (req, res) {
         .then(function (savedProperty) {
             res.redirect('/properties/' + savedProperty.id);
         });
-});
+}
 
 
 
 // POST /properties/update
-router.post('/update', middleware.isAuthenticated, function (req, res) {
+exports.editProperty = (req, res) => {
     var propertyId = req.body.propertyId;
 
     Property.findOne({ _id: propertyId })
@@ -55,4 +55,20 @@ router.post('/update', middleware.isAuthenticated, function (req, res) {
         .then(function (updatedProperty) {
             return res.redirect('/properties/' + updatedProperty.id);
         });
-});
+}
+
+// POST /properties/update
+exports.deleteProperty = (req, res) => {
+    var propertyId = req.body.propertyId;
+
+    Property.findOne({ _id: propertyId })
+        .then(function (property) {
+            property.description = req.body.description;
+            property.imageUrl = req.body.imageUrl;
+
+            return property.save();
+        })
+        .then(function (updatedProperty) {
+            return res.redirect('/properties/' + updatedProperty.id);
+        });
+}

@@ -7,6 +7,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const userRoute = require("./routes/users");
+const propertyRoute = require("./routes/properties")
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(bodyParser.json({ limit: "10mb" }));
 
 //App routes to handle requests
 app.use("/api/users", userRoute);
+app.use("/api/properties", propertyRoute);
 
 //Serve our static asset
 app.use(express.static("frontend/build"));
